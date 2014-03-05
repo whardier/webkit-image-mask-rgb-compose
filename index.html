@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+
+  <p>CSS Mask Combined Image</p>
+
+  <div style="width: 500px; height: 500px; position: relative; background-color: black;">
+    
+    <div style="width: 500px; height:500px; background-color: #FF0000; position: absolute; top: 0; left: 0; -webkit-mask-image: url(t-red.png); mix-blend-mode: screen;">
+    </div>
+    <div style="width: 500px; height:500px; background-color: #00FF00; position: absolute; top: 0; left: 0; -webkit-mask-image: url(t-green.png); mix-blend-mode: screen;">      
+    </div>
+    <div style="width: 500px; height:500px; background-color: #0000FF; position: absolute; top: 0; left: 0; -webkit-mask-image: url(t-blue.png); mix-blend-mode: screen;">      
+    </div>
+    
+  </div>
+
+  <p>Original Image</p>
+  <img src="t-orig.png">
+  
+</body>
+</html>
