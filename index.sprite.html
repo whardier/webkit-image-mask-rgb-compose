@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+
+  <p>CSS Mask Combined Image</p>
+
+  <p>If this looks weird to you.. enable this in chrome: <a href="chrome://flags/#enable-experimental-web-platform-features">chrome://flags/#enable-experimental-web-platform-features</a></p>
+
+  <div style="width: 500px; height: 500px; position: relative; background-color: black;">
+    <div style="width: 500px; height:500px; position: absolute; top: 0; left: 0; background-color: #FF0000; -webkit-mask-image: url(t-red.png); mix-blend-mode: screen;"></div>
+    <div style="width: 500px; height:500px; position: absolute; top: 0; left: 0; background-color: #00FF00; -webkit-mask-image: url(t-green.png); mix-blend-mode: screen;"></div>
+    <div style="width: 500px; height:500px; position: absolute; top: 0; left: 0; background-color: #0000FF; -webkit-mask-image: url(t-blue.png); mix-blend-mode: screen;"></div>    
+  </div>
+
+  <p>Canvas Version (JPEG Sources)</p>
+
+  <div style="width: 500px; height: 500px; position: relative; background-color: black;">
+    <canvas id="red" width="500" height="500" style="width: 500px; height:500px; position: absolute; top: 0; left: 0; mix-blend-mode: screen;"></canvas>
+    <canvas id="green" width="500" height="500" style="width: 500px; height:500px; position: absolute; top: 0; left: 0; mix-blend-mode: screen;"></canvas>
+    <canvas id="blue" width="500" height="500" style="width: 500px; height:500px; position: absolute; top: 0; left: 0; mix-blend-mode: screen;"></canvas>
+  </div>
+
+  <p>Pure Canvas Version (JPEG Sources)</p>
+
+  <canvas id="redgreenblue" width="500" height="500" style="width: 500px; height:500px; position: relative;"></canvas>
+
+  <p>Original Image</p>
+  <img src="t-orig.png">
+
+<script type="text/javascript">
+
+    window.onload = function() {
+
+        var rgb_canvas = document.getElementById('redgreenblue');
+        var rgb_ctx = rgb_canvas.getContext('2d');
+
+        rgb_ctx.fillStyle = 'rgb(0,0,0)';
+        rgb_ctx.fillRect(0, 0, 500, 500);
+
+        rgb_ctx.globalCompositeOperation = 'screen';
+
+        var red_canvas = document.getElementById('red');
+        var red_ctx = red_canvas.getContext('2d');
+        var green_canvas = document.getElementById('green');
+        var green_ctx = green_canvas.getContext('2d');
+        var blue_canvas = document.getElementById('blue');
+        var blue_ctx = blue_canvas.getContext('2d');
+
+        var all_img=new Image();
+
+        red_ctx.fillStyle = 'rgb(255,0,0)';
+        red_ctx.fillRect(0, 0, 500, 500);
+        red_ctx.globalCompositeOperation = 'multiply';
+
+        green_ctx.fillStyle = 'rgb(0,255,0)';
+        green_ctx.fillRect(0, 0, 500, 500);
+        green_ctx.globalCompositeOperation = 'multiply';
+
+        blue_ctx.fillStyle = 'rgb(0,0,255)';
+        blue_ctx.fillRect(0, 0, 500, 500);
+        blue_ctx.globalCompositeOperation = 'multiply';
+
+        all_img.onload = function() { 
+            red_ctx.drawImage(all_img,0,0);
+            green_ctx.drawImage(all_img,-500,0);
+            blue_ctx.drawImage(all_img,-1000,0);
+
+            rgb_ctx.drawImage(red_canvas,0,0);
+            rgb_ctx.drawImage(green_canvas,0,0);
+            rgb_ctx.drawImage(blue_canvas,0,0);
+        };
+
+        all_img.src = 't-all.jpg';
+
+    }
+
+</script>
+  
+</body>
+</html>
