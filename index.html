@@ -16,8 +16,88 @@
     <div style="width: 500px; height:500px; position: absolute; top: 0; left: 0; background-color: #0000FF; -webkit-mask-image: url(t-blue.png); mix-blend-mode: screen;"></div>    
   </div>
 
+  <p>Canvas Version (JPEG Sources)</p>
+
+  <div style="width: 500px; height: 500px; position: relative; background-color: black;">
+    <canvas id="red" width="500" height="500" style="width: 500px; height:500px; position: absolute; top: 0; left: 0; mix-blend-mode: screen;"></canvas>
+    <canvas id="green" width="500" height="500" style="width: 500px; height:500px; position: absolute; top: 0; left: 0; mix-blend-mode: screen;"></canvas>
+    <canvas id="blue" width="500" height="500" style="width: 500px; height:500px; position: absolute; top: 0; left: 0; mix-blend-mode: screen;"></canvas>
+  </div>
+
+  <p>Pure Canvas Version (JPEG Sources)</p>
+
+  <canvas id="redgreenblue" width="500" height="500" style="width: 500px; height:500px; position: relative;"></canvas>
+
   <p>Original Image</p>
   <img src="t-orig.png">
+
+<script type="text/javascript">
+
+    window.onload = function() {
+
+        var rgb_canvas = document.getElementById('redgreenblue');
+        var rgb_ctx = rgb_canvas.getContext('2d');
+
+        rgb_ctx.fillStyle = 'rgb(0,0,0)';
+        rgb_ctx.fillRect(0, 0, 500, 500);
+
+        rgb_ctx.globalCompositeOperation = 'screen';
+
+        var red_canvas = document.getElementById('red');
+        var red_ctx = red_canvas.getContext('2d');
+        var green_canvas = document.getElementById('green');
+        var green_ctx = green_canvas.getContext('2d');
+        var blue_canvas = document.getElementById('blue');
+        var blue_ctx = blue_canvas.getContext('2d');
+
+        red_ctx.fillStyle = 'rgb(255,0,0)';
+        red_ctx.fillRect(0, 0, 500, 500);
+
+        // switch to multiply blending
+        red_ctx.globalCompositeOperation = 'multiply';
+
+        var red_img=new Image();
+
+        red_img.onload = function() { 
+            red_ctx.drawImage(red_img,0,0);
+            rgb_ctx.drawImage(red_canvas,0,0);
+        };
+
+        red_img.src = 't-red.jpg';
+
+        green_ctx.fillStyle = 'rgb(0,255,0)';
+        green_ctx.fillRect(0, 0, 500, 500);
+
+        var green_img=new Image();
+
+        // switch to multiply blending
+        green_ctx.globalCompositeOperation = 'multiply';
+
+        green_img.onload = function() { 
+            green_ctx.drawImage(green_img,0,0);
+            rgb_ctx.drawImage(green_canvas,0,0);
+        };
+
+        green_img.src = 't-green.jpg';
+
+        blue_ctx.fillStyle = 'rgb(0,0,255)';
+        blue_ctx.fillRect(0, 0, 500, 500);
+
+        // switch to multiply blending
+        blue_ctx.globalCompositeOperation = 'multiply';
+
+        var blue_img=new Image();
+
+        blue_img.onload = function() { 
+            blue_ctx.drawImage(blue_img,0,0);
+            rgb_ctx.drawImage(blue_canvas,0,0);
+        };
+
+        blue_img.src = 't-blue.jpg';
+
+    }
+
+</script>
   
 </body>
 </html>
